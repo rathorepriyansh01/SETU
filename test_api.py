@@ -8,7 +8,7 @@ def test_endpoints():
     # 1. Health check
     req = urllib.request.urlopen(f"{base}/health")
     health = json.loads(req.read().decode())
-    print("[OK] Health Check:", health)
+    print("[OK] Health Check:", health.get("status"))
 
     # 2. Hospitals List
     req = urllib.request.urlopen(f"{base}/hospitals")
@@ -37,7 +37,8 @@ def test_endpoints():
     print(f"[OK] Emergency #{em_res['emergency_id']} Created.")
     print("[OK] Top 3 Recommendations:")
     for rec in em_res["top_3_recommendations"]:
-        print(f"   Rank #{rec['rank']}: {rec['hospital_name']} (Score {rec['score']}) - Reasons: {rec['reasons']}")
+        clean_reasons = [r.encode('ascii', 'ignore').decode('ascii') for r in rec['reasons']]
+        print(f"   Rank #{rec['rank']}: {rec['hospital_name']} (Score {rec['score']}) - Reasons: {clean_reasons}")
     
     print("[OK] Nearest vs SETU Comparison:")
     print("   Nearest:", em_res["comparison"]["nearest_hospital"]["name"], f"({em_res['comparison']['nearest_hospital']['icu_available']} ICU free, {em_res['comparison']['nearest_hospital']['predicted_load_percent']}% load)")
