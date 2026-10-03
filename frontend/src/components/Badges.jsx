@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, ShieldAlert, CheckCircle, AlertTriangle } from 'lucide-react';
 
-export const StatusBadge = ({ status = 'Available', showIcon = True }) => {
+export const StatusBadge = ({ status = 'Available', showIcon = true }) => {
   let colorStyle = 'bg-emerald-50 text-emerald-700 border-emerald-200';
   let dotStyle = 'bg-emerald-500';
   let text = status;
