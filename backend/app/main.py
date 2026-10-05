@@ -17,11 +17,12 @@ app = FastAPI(
     description="SETU — Smart Emergency & Healthcare Resilience Platform for Bhopal, MP"
 )
 
-# Configure CORS
 origins = [origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Allow local Vite dev server
+    allow_origins=origins if origins and "*" not in origins else ["*"],
+    allow_origin_regex=r"https://.*\.vercel\.app" if "*" not in origins else None,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,6 +42,14 @@ app.include_router(dispatcher.router)
 app.include_router(hospital.router)
 app.include_router(admin.router)
 app.include_router(ai.router)
+
+@app.get("/")
+def root():
+    return {
+        "message": "SETU Healthcare Resilience Platform API",
+        "status": "running",
+        "docs": "/docs"
+    }
 
 @app.get("/api/health")
 def health_check():

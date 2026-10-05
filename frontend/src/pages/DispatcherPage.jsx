@@ -73,7 +73,7 @@ export const DispatcherPage = ({ activeTab }) => {
         hospital_id: selectedHospitalId,
         ambulance_id: selectedAmbulanceId,
         is_override: isOverride,
-        override_reason: isOverride ? "Dispatcher manual decision override" : None
+        override_reason: isOverride ? "Dispatcher manual decision override" : null
       });
       setAssignedMsg(res.message);
       fetchData();

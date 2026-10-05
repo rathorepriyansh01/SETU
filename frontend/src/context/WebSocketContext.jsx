@@ -9,7 +9,8 @@ export const WebSocketProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const wsUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/^http/, 'ws') + '/ws/live';
+    const baseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/\/api\/?$/, '');
+    const wsUrl = baseUrl.replace(/^http/, 'ws') + '/ws/live';
     let ws;
 
     const connect = () => {
