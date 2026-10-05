@@ -10,14 +10,9 @@ export const WebSocketProvider = ({ children }) => {
 
   useEffect(() => {
     const getWsUrl = () => {
-      const envApiUrl = import.meta.env.VITE_API_BASE_URL;
-      if (envApiUrl) {
-        const baseUrl = envApiUrl.replace(/\/api\/?$/, '');
-        return baseUrl.replace(/^http/, 'ws') + '/ws/live';
-      }
-      const protocol = typeof window !== 'undefined' && window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const host = typeof window !== 'undefined' ? window.location.host : 'localhost:8000';
-      return `${protocol}//${host}/ws/live`;
+      const envApiUrl = import.meta.env.VITE_API_BASE_URL || 'https://setu-ffwk.onrender.com/api';
+      const baseUrl = envApiUrl.replace(/\/api\/?$/, '');
+      return baseUrl.replace(/^http/, 'ws') + '/ws/live';
     };
 
     const wsUrl = getWsUrl();

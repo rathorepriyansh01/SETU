@@ -15,7 +15,7 @@ class Settings(BaseSettings):
         return self.DATABASE_URL
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 7 days for demo ease
-    CORS_ORIGINS: str = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000")
+    CORS_ORIGINS: str = os.getenv("CORS_ORIGINS", "https://setu-beige-one.vercel.app,https://setu-frontend.vercel.app,https://setu.vercel.app,http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000")
     DEFAULT_CITY: str = "Bhopal"
     DEFAULT_STATE: str = "Madhya Pradesh"
     # Bhopal center coordinates
